@@ -7,10 +7,12 @@ public class A007 {
       while(sc.hasNext()) {
          int num = sc.nextInt();
          boolean isPrime = true;
+         int upperBound = (int) Math.sqrt(num);
 
-         for (int i = 2; i < Math.sqrt(num); ++i) {
+         for (int i = 2; i <= upperBound; ++i) {
             if (num % i == 0) {
                isPrime = false;
+               break;
             }
          }
          if (isPrime)
