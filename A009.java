@@ -1,14 +1,20 @@
 import java.util.Scanner;
 
 public class A009 {
+   final static int shift = 7;
    public static void main(String[] args) {
-      final String plain_text = "*CDC is the trademark of the Control Data Corporation.";
-      final String encoded_text = "1JKJ'pz'{ol'{yhklthyr'vm'{ol'Jvu{yvs'Kh{h'Jvywvyh{pvu5";
+    Scanner sc = new Scanner(System.in);
+    while(sc.hasNext()) {
+      decode(sc.nextLine());
+    }
    }
 
-   public static void printASCII(String text) {
+   public static void decode(String text) {
       for (int i = 0; i < text.length(); ++i) {
-         System.out.printf("%d ", text.charAt(i));
+         int ascii = (int) text.charAt(i);
+         ascii -= shift;
+         System.out.printf("%s", (char) ascii);
       }
+      System.out.println();
    }
 }
