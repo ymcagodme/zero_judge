@@ -35,6 +35,29 @@ public class A017 {
    }
 
    public static List<String> calculate(List<String> expression) {
+      if (expression.size() == 3) {
+         ArrayList<String> result = new ArrayList<String>();
+         int a = Integer.parseInt(expression.get(0));
+         int b = Integer.parseInt(expression.get(2));
+         switch (expression.get(1)) {
+            case "%":
+               result.add(String.format("%d", a % b));
+               break;
+            case "*":
+               result.add(String.format("%d", a * b));
+               break;
+            case "/":
+               result.add(String.format("%d", a / b));
+               break;
+            case "+":
+               result.add(String.format("%d", a + b));
+               break;
+            case "-":
+               result.add(String.format("%d", a - b));
+         }
+         return result;
+      }
+
       for (int i = 0; i < expression.size(); ++i) {
          if (expression.get(i).equals("(")) {
             int endIndex = expression.indexOf(")");
@@ -47,7 +70,7 @@ public class A017 {
       }
 
       for (int i = 0; i < expression.size(); ++i) {
-         if (expression.get(i).equals("*")) {
+         if (expression.get(i).equals("%")) {
             // Do calculation...
          }
       }
