@@ -1,37 +1,21 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 public class A017 {
    public static void main(String[] args) {
       Scanner sc = new Scanner(System.in);
 
-      ArrayList<String> test = new ArrayList<String>();
-      test.add("4");
-      test.add("*");
-      test.add("(");
-      test.add("2");
-      test.add("+");
-      test.add("3");
-      test.add(")");
-
-      for (int i = 0; i < test.size(); ++i) {
-         if (test.get(i).equals("(")) {
-            int endIndex = test.indexOf(")");
-            List<String> subList = test.subList(i, endIndex + 1);
-            test.removeAll(subList);
+      while (sc.hasNext()) {
+         String[] line = sc.nextLine().split(" ");
+         List<String> expression = new ArrayList<String>();
+         Collections.addAll(expression, line);
+         while (expression.size() != 1) {
+            expression = calculate(expression);
          }
+         System.out.println(expression.get(0));
       }
-
-      List<String> testList = new ArrayList<String>();
-      testList.add("5");
-
-      test.addAll(2, testList);
-
-      for (String s : test) {
-         System.out.print(s);
-      }
-      System.out.println();
    }
 
    public static List<String> calculate(List<String> expression) {
@@ -58,22 +42,71 @@ public class A017 {
          return result;
       }
 
+      List<String> subList;
+      List<String> reducedList;
       for (int i = 0; i < expression.size(); ++i) {
          if (expression.get(i).equals("(")) {
-            int endIndex = expression.indexOf(")");
-            List<String> subList = expression.subList(i, endIndex + 1);
-            expression.removeAll(subList);
-            subList.remove(0);
-            subList.remove(subList.size() - 1);
-            expression.addAll(i, calculate(subList));
+               int endIndex = expression.indexOf(")");
+               subList = expression.subList(i, endIndex + 1);
+               subList.remove(0);
+               subList.remove(subList.size() - 1);
+               reducedList = calculate(subList);
+               subList.clear();
+               expression.addAll(i, reducedList);
+               return expression;
          }
       }
 
       for (int i = 0; i < expression.size(); ++i) {
          if (expression.get(i).equals("%")) {
-            // Do calculation...
+            subList = expression.subList(i - 1, i + 2);
+            reducedList = calculate(subList);
+            subList.clear();
+            expression.addAll(i - 1, reducedList);
+            return expression;
          }
       }
 
+      for (int i = 0; i < expression.size(); ++i) {
+         if (expression.get(i).equals("*")) {
+            subList = expression.subList(i - 1, i + 2);
+            reducedList = calculate(subList);
+            subList.clear();
+            expression.addAll(i - 1, reducedList);
+            return expression;
+         }
+      }
+
+      for (int i = 0; i < expression.size(); ++i) {
+         if (expression.get(i).equals("/")) {
+            subList = expression.subList(i - 1, i + 2);
+            reducedList = calculate(subList);
+            subList.clear();
+            expression.addAll(i - 1, reducedList);
+            return expression;
+         }
+      }
+
+      for (int i = 0; i < expression.size(); ++i) {
+         if (expression.get(i).equals("+")) {
+            subList = expression.subList(i - 1, i + 2);
+            reducedList = calculate(subList);
+            subList.clear();
+            expression.addAll(i - 1, reducedList);
+            return expression;
+         }
+      }
+
+      for (int i = 0; i < expression.size(); ++i) {
+         if (expression.get(i).equals("-")) {
+            subList = expression.subList(i - 1, i + 2);
+            reducedList = calculate(subList);
+            subList.clear();
+            expression.addAll(i - 1, reducedList);
+            return expression;
+         }
+      }
+
+      return expression;
    }
 }
