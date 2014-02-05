@@ -23,23 +23,26 @@ public class A017 {
          ArrayList<String> result = new ArrayList<String>();
          int a = Integer.parseInt(expression.get(0));
          int b = Integer.parseInt(expression.get(2));
-         switch (expression.get(1)) {
-            case "%":
-               result.add(String.format("%d", a % b));
-               break;
-            case "*":
-               result.add(String.format("%d", a * b));
-               break;
-            case "/":
-               result.add(String.format("%d", a / b));
-               break;
-            case "+":
-               result.add(String.format("%d", a + b));
-               break;
-            case "-":
-               result.add(String.format("%d", a - b));
+         if (expression.get(1).equals("%")) {
+            result.add(String.format("%d", a % b));
+            return result;
          }
-         return result;
+         else if (expression.get(1).equals("*")) {
+            result.add(String.format("%d", a * b));
+            return result;
+         }
+         else if (expression.get(1).equals("/")) {
+            result.add(String.format("%d", a / b));
+            return result;
+         }
+         else if (expression.get(1).equals("+")) {
+            result.add(String.format("%d", a + b));
+            return result;
+         }
+         else if (expression.get(1).equals("-")) {
+            result.add(String.format("%d", a - b));
+            return result;
+         }
       }
 
       List<String> subList;
