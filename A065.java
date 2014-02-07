@@ -6,9 +6,6 @@ class A065 {
 
       while (sc.hasNext()) {
          char[] letters = sc.nextLine().toCharArray();
-         for (char c: letters) {
-            System.out.println((int) c);
-         }
          for (int i = 0; i < letters.length - 1; ++i) {
             int distance = Math.abs((int) letters[i + 1] - (int) letters[i]);
             System.out.print(distance);
