@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 class A104 {
    public static void main(String[] args) {
@@ -20,19 +21,51 @@ class A104 {
       }
    }
 
-   public static int[] mergeSort(int[] array) {
-      if (array.length == 1) {
-         return array;
-      }
+   // Dual-pivot quick sort
+   public static int[] buildinSort(int[] array) {
+      Arrays.sort(array);
+      return array;
+   }
 
-      int[] left = new int[array.length / 2];
+   public static void quickSort(int[] array, int beginIndex, int length) {
+      if (length <= 1)
+         return;
+
+      final int endIndex = beginIndex + length - 1;
+
+      // Select Pivot
+      final int pivotPosition = beginIndex + length / 2;
+      final int pivotValue = array[pivotPosition];
+      swap(array, pivotPosition, endIndex);
+
+      // Partitioning
+      int ptr = beginIndex;
+      for (int i = beginIndex; i < endIndex; ++i) {
+         if (array[i] < pivotValue)
+            swap(array, i, ptr++);
+      }
+      swap(array, ptr, endIndex);
+
+      quickSort(array, beginIndex, ptr - beginIndex);
+      quickSort(array, ptr + 1, endIndex - ptr);
+   }
+
+   public static void swap(int[] arr, int src, int dst) {
+      int temp = arr[src];
+      arr[src] = arr[dst];
+      arr[dst] = temp;
+   }
+
+   public static int[] mergeSort(int[] array) {
+      if (array.length == 1)
+         return array;
+
+      int half = array.length / 2;
+      int[] left = new int[half];
       int[] right = new int[array.length - left.length];
 
-      for (int i = 0; i < left.length; ++i)
-         left[i] = array[i];
-
-      for (int i = 0; i < right.length; ++i)
-         right[i] = array[i + left.length];
+      System.arraycopy(array, 0, left, 0, left.length);
+      System.arraycopy(array, half, right, 0, right.length);
 
       left = mergeSort(left);
       right = mergeSort(right);
@@ -54,17 +87,12 @@ class A104 {
          ++counter;
       }
 
-      if (leftHead == left.length) {
-         for (int i = rightHead; i < right.length; ++i) {
-            result[counter] = right[i];
-            ++counter;
-         }
+      for (int i = rightHead; i < right.length; ++i) {
+         result[counter++] = right[i];
       }
-      else if (rightHead == right.length){
-         for (int i = leftHead; i < left.length; ++i) {
-            result[counter] = left[i];
-            ++counter;
-         }
+
+      for (int i = leftHead; i < left.length; ++i) {
+         result[counter++] = left[i];
       }
 
       return result;
