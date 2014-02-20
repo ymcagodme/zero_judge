@@ -1,8 +1,6 @@
 import java.util.Scanner;
 
 class A215 {
-   static int[] dp = new int[1000000];
-
    public static void main(String[] args) {
       Scanner sc = new Scanner(System.in);
 
@@ -12,7 +10,7 @@ class A215 {
          int sum = n;
          int count = 1;
 
-         while (sum < m) {
+         while (sum <= m) {
             sum += (++n);
             count++;
          }
