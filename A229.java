@@ -6,26 +6,25 @@ class A229 {
 
       while (sc.hasNext()) {
          int n = sc.nextInt();
-         dfs(n, n, "");
-         System.out.println();
+         dfs(n, n, new StringBuilder());
       }
    }
 
-   public static void dfs(int n, int m, String str) {
+   public static void dfs(int n, int m, StringBuilder str) {
       if (n == 0) {
          for (; m > 0; m--) {
-            str += ")";
+            str.append(")");
          }
          System.out.println(str);
          return;
       }
 
       if (n < m) {
-         dfs(n - 1, m, str + "(");
-         dfs(n, m - 1, str + ")");
+         dfs(n - 1, m, new StringBuilder(str).append("("));
+         dfs(n, m - 1, new StringBuilder(str).append(")"));
       }
       else if (n == m) {
-         dfs(n - 1, m, str + "(");
+         dfs(n - 1, m, new StringBuilder(str).append("("));
       }
    }
 }
