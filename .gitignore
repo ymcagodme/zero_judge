@@ -16,6 +16,7 @@
 *.lai
 *.la
 *.a
+*.in
 
 Test.java
 DFSandBFS.java
